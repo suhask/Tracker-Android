@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.hilt)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
@@ -21,6 +22,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -45,6 +49,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/gradle/incremental.annotation.processors"
         }
     }
 }
@@ -63,6 +68,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     testImplementation(libs.junit)
+    implementation(libs.dagger.hilt)
+    implementation(libs.dagger.hilt.compiler)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
